@@ -55,6 +55,8 @@ var completeEditTask = function(taskName, taskType, taskId) {
         }
     }
 
+    saveTasks();
+
     alert("Task Updated!");
 
     formEl.removeAttribute("data-task-id");
@@ -81,6 +83,7 @@ var createTaskEl = function(taskDataObj) {
     taskDataObj.id = taskIdCounter;
 
     tasks.push(taskDataObj);
+    saveTasks();
 
     // appends list item to the UL already on the html document
     var taskActionsEl = createTaskActions(taskIdCounter);
@@ -145,6 +148,7 @@ var deleteTask = function(taskId) {
     }
 
     tasks = updatedTaskArr;
+    saveTasks();
 };
 
 var editTask = function(taskId) {
@@ -200,7 +204,14 @@ var taskStatusChangeHandler = function(event) {
         }
     }
 
+    saveTasks();
+
 };
+
+var saveTasks = function() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+
+}
 
 
 pageContentEl.addEventListener("click", taskButtonHandler);
